@@ -14,6 +14,9 @@ COPY ./config/php.ini /usr/local/etc/php/
 
 # Apacheのモジュールを有効化
 RUN a2enmod rewrite
+RUN a2enmod mime
+
+# Apacheを再起動
 RUN service apache2 restart
 
 # ドキュメントルートの設定

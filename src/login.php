@@ -1,68 +1,44 @@
 <?php
 require_once('library.php');
 
-$csrf_token = filter_input(INPUT_POST, 'csrf_token');
-if (validate_csrf_token($csrf_token) === false) {
-    error_log('不正なcsrf tokenです。');
-    header('Location: error.php');
-    exit();
-}
+$csrf_token = generate_csrf_token();
 
-$name = (string)filter_input(INPUT_POST, 'name');
-if ($name === "") {
-    set_message(MESSAGE_SIGNIN_ERROR);
-    header('Location: index.php');
-    exit();
-}
-if (mb_strlen($name) > 20) {
-    set_message(MESSAGE_SIGNIN_ERROR);
-    header('Location: index.php');
-    exit();
-}
-
-$password = (string)filter_input(INPUT_POST, 'password');
-if ($password === "") {
-    set_message(MESSAGE_SIGNIN_ERROR);
-    header('Location: index.php');
-    exit();
-}
-if (mb_strlen($password) > 20) {
-    set_message(MESSAGE_SIGNIN_ERROR);
-    header('Location: index.php');
-    exit();
-}
-
-try {
-    $sql = "select
-                id, name, password
-            from
-                lists
-            where
-                name = :name";
-
-    $ps = $pdo->prepare($sql);
-    $ps->bindValue(':name', $name, PDO::PARAM_STR);
-    $ps->execute();
-    $master = $ps->fetch();
-    if ($master === false) {
-        set_message(MESSAGE_SIGNIN_ERROR);
-        header('Location: index.php');
-        exit();
-    }
-    if (password_verify($password, $master['password']) === false) {
-        set_message(MESSAGE_SIGNIN_ERROR);
-        header('Location: index.php');
-        exit();
-    }
-    
-    sign_in($master);
-
-    set_message(MESSAGE_SIGNIN_SUCCESS);
-
-    header('Location: show.php?id=' . $master['id']);
-} catch (PDOException $e) {
-    error_log('PDOException: ' . $e->getMessage());
-    header('Location: error.php');
-    exit();
-}
+$input_values = $_SESSION['input_values'] ?? [];
+unset($_SESSION['input_values']);
 ?>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <?php require('head.php'); ?>
+</head>
+<body>
+    <?php require('header.php'); ?>
+    <main class="custom-container">
+        <?php require('message.php'); ?>
+        <div class="login-box">
+            <h3>従業員-ログイン画面</h3>
+            <hr>
+            <form action="login_post.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?= h($csrf_token) ?>">
+                <div class="custom-form-group">
+                    <label for="name">企業ID</label>
+                    <input type="text" name="company_id" id="company_id" class="custom-input" value="<?= ($input_values['company_id'] ?? '') ?>" required>
+                </div>
+                <div class="custom-form-group">
+                    <label for="name">社員番号</label>
+                    <input type="text" name="number" id="number" class="custom-input"  value="<?= ($input_values['number'] ?? '') ?>" required>
+                </div>
+                <div class="custom-form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" name="password" id="password" class="custom-input" required>
+                </div>
+                <button type="submit" class="custom-btn">ログインする</button>
+            </form>
+            <hr>
+            <div class="admin-link">
+                <a href="signin.php">管理者サインイン画面</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

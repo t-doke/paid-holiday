@@ -1,18 +1,26 @@
+<?php 
+require_once('library.php');
+
+$csrf_token = generate_csrf_token();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Paid-Holiday</title>
+    <?php require('master_head.php'); ?>
 </head>
 <body>
-<div class="container">
-    <h3>エラー</h3>
-    <hr>
-    <p>エラーです。</p>
-    <hr>
-    <a href="index.php">戻る</a>
-</div>
+    <?php require('header.php'); ?>
+    <main class="custom-container">
+        <?php require('message.php'); ?>
+        <div class="error-box">
+            <h3>エラー</h3>
+            <hr>
+            <p>エラーです。</p>
+            <hr>
+            <div class="admin-link">
+                <a href="login.php">戻る</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

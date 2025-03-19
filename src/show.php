@@ -3,13 +3,13 @@ require('library.php');
 
 $id = (string)filter_input(INPUT_GET, 'id');
 if ($id === "") {
-    error_log("IDがありません。");
-    header('Location: create.php');
+    set_message("IDが存在しません。");
+    header('Location: login.php');
     exit();
 }
 if (filter_var($id, FILTER_VALIDATE_INT) === false) {
-    error_log("IDが整数ではありません。");
-    header('Location: create.php');
+    set_message("IDが整数ではありません。");
+    header('Location: login.php');
     exit();
 }
 
@@ -38,20 +38,29 @@ try {
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Paid-Holiday</title>
+    <?php require('head.php'); ?>
 </head>
 <body>
-<div class="container">
-    <?php require('message.php'); ?>
-    <h3><?= h($list['name']) ?>さんお疲れ様です。</h3>
-    <hr>
-    <p><?= h($list['name']) ?>さんの残り有給数は<?= h($list['paid']) ?>です。<br>
-        <small>（<?= $datetime->format('Y-m-d H:i:s') ?> 時点）</small></p>
-    <hr>
-    <p><a href="index.php">戻る</a></p>
-</div>
+    <?php require('header.php'); ?>
+    <main class="custom-container">
+        <?php require('message.php'); ?>
+        <div class="status-box">
+            <h3><?= h($list['name']) ?>さん、お疲れ様です。</h3>
+            <hr>
+            <p class="status-message">
+                <?= h($list['name']) ?>さんの残り有給数は 
+                <span class="highlight"><?= h($list['paid']) ?></span> です。<br>
+                <small class="date-info">（<?= $datetime->format('Y-m-d') ?> 時点）</small>
+            </p>
+            <hr>
+            <div class="admin-link">
+                <a href="shift.php" target="_blank">シフトを見る</a>
+            </div>
+            <hr>
+            <div class="admin-link">
+                <a href="login.php">戻る</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

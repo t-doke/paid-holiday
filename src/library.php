@@ -22,9 +22,15 @@ define("SESSION_CSRF_TOKEN", "SESSION_CSRF_TOKEN");
 
 define("MESSAGE_SIGNIN_SUCCESS", "サインインに成功しました。");
 define("MESSAGE_SIGNIN_ERROR", "サインインに失敗しました。");
+define("MESSAGE_LOGIN_SUCCESS", "ログインに成功しました。");
+define("MESSAGE_LOGIN_ERROR", "ログインに失敗しました。");
 define("MESSAGE_SIGNUP_SUCCESS", "サインアップに成功しました。");
 define("MESSAGE_SIGNUP_ERROR", "サインアップに失敗しました。");
 define("MESSAGE_SIGNUP_ERROR_NOT_AVAILABLE_NAME", "この名前は使用できません。");
+define("MESSAGE_WRONG_PASSWORD", "旧パスワードが正しくありません。");
+define("MESSAGE_CHANGE_PASSWORD_SUCCESS", "パスワードを変更しました。");
+define("MESSAGE_ALREADY_USED_NUMBER", "この社員番号は既に使用されています。");
+define("MESSAGE_ALREADY_USED_NAME", "この企業IDは既に使用されています。");
 
 session_start();
 
