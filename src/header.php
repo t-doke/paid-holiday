@@ -24,7 +24,7 @@ try {
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a href="login.php" class="navbar-brand"><strong>有給確認</strong></a>
+            <a href="/login.php" class="navbar-brand"><strong>有給確認</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -45,9 +45,9 @@ try {
                             </ul>
                             <?php else: ?>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="master_show.php?id=<?= h(get_account_id()) ?>">管理画面へ</a></li>
-                                <li><a class="dropdown-item" href="master_change_pass.php?id=<?= h(get_account_id()) ?>">パスワードの変更</a></li>                                
-                                <li><a class="dropdown-item" href="signout.php">サインアウト</a></li>
+                                <li><a class="dropdown-item" href="/master/master_show.php?id=<?= h(get_account_id()) ?>">管理画面へ</a></li>
+                                <li><a class="dropdown-item" href="/master/master_change_pass.php?id=<?= h(get_account_id()) ?>">パスワードの変更</a></li>                                
+                                <li><a class="dropdown-item" href="/master/signout.php">サインアウト</a></li>
                             </ul>
                             <?php endif; ?>
                         </li>
@@ -55,7 +55,7 @@ try {
                 <?php } else { ?>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="login.php" class="btn btn-outline-light">ログイン</a>
+                            <a href="/login.php" class="btn btn-outline-light">ログイン</a>
                         </li>
                     </ul>
                 <?php } ?>

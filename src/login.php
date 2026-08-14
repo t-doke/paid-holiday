@@ -36,7 +36,7 @@ unset($_SESSION['input_values']);
             </form>
             <hr>
             <div class="admin-link">
-                <a href="signin.php">管理者サインイン画面</a>
+                <a href="master/signin.php">管理者サインイン画面</a>
             </div>
         </div>
     </main>
